@@ -1,44 +1,41 @@
-//
-//  ContentView.swift
-//  swiftui-practice
-//
-//  Created by KokiHirokawa on 2019/09/30.
-//  Copyright © 2019 KokiHirokawa. All rights reserved.
-//
-
 import SwiftUI
 
-struct ContentView: View {
+struct LandmarkDetail: View {
+    var landmark: Landmark
+
     var body: some View {
         VStack {
-            MapView()
+            MapView(coordinate: landmark.locationCoordinate)
                 .frame(height: 300)
-                .edgesIgnoringSafeArea(.top)
 
             CircleImage()
                 .offset(y: -130)
                 .padding(.bottom, -130)
 
             VStack(alignment: .leading) {
-                Text("Turtle Rock")
+                Text(landmark.name)
                     .font(.title)
-                HStack {
-                    Text("Joshua Tree National Park")
+
+                HStack(alignment: .top) {
+                    Text(landmark.park)
                         .font(.subheadline)
+
                     Spacer()
-                    Text("California")
+
+                    Text(landmark.state)
                         .font(.subheadline)
                 }
             }
             .padding()
 
             Spacer()
-        }
+        }   
+        .navigationBarTitle(Text(landmark.name), displayMode: .inline)
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        LandmarkDetail(landmark: landmarkData[0])
     }
 }
